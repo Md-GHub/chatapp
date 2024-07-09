@@ -9,8 +9,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 //static template:
-
-
+app.use(express.static(path.join(__dirname,"public")));
 
 //Even while connecting to user : 
 io.on("connection",socket=>{
@@ -19,7 +18,7 @@ io.on("connection",socket=>{
     socket.on("message",msg=>{
         io.emit("message",msg);
     });
-    
+
     //disconnection event:
     socket.on("disconnect", () => {
         console.log("user disconnected");
@@ -28,6 +27,6 @@ io.on("connection",socket=>{
 });
 
 
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`Server running localhost:${PORT}`);
 });
